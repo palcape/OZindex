@@ -11,14 +11,14 @@ acsvars <- load_variables(2017, "acs5", cache = T) %>%
   rename(variable = name)
 
 
-si_acs <- function(C17026, county = NULL, state = NULL, summary_var = "universe total") {
+si_acs <- function(C25004, county = NULL, state = NULL, summary_var = "universe total") {
   cat(yellow(bold("Reminder: You must stay within the same level for any summary to be valid!\n")))
   
   if(summary_var == "universe total") summary_var = paste0(table, "_001")
   summary_label = acsvars %>% filter(variable == summary_var) %>% pull(levlab) 
   
   get_acs(geography = "county", 
-          table = C17026, 
+          table = C25004, 
           county = county,
           state = state,
           output = "tidy",
