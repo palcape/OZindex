@@ -1,3 +1,34 @@
+library(crayon)
 library(tidycensus)
+library(tidyverse)
 
-census_api_key(69fe4cc51c7391a09bf808f8816a1035e493c0bd, install = T)
+acsvars <- load_variables(2017, "acs5", cache = T) %>% 
+  mutate(level = str_count(label, pattern = "!!")) %>% 
+  rowwise() %>% 
+  mutate(levlab = str_split(label, pattern = "!!") %>% unlist() %>% .[level + 1]) %>% 
+  ungroup() %>% 
+  mutate(concept = str_to_title(concept)) %>% 
+  rename(variable = name)
+
+
+si_acs <- function(C17026, county = NULL, state = NULL, summary_var = "universe total") {
+  cat(yellow(bold("Reminder: You must stay within the same level for any summary to be valid!\n")))
+  
+  if(summary_var == "universe total") summary_var = paste0(table, "_001")
+  summary_label = acsvars %>% filter(variable == summary_var) %>% pull(levlab) 
+  
+  get_acs(geography = "county", 
+          table = C17026, 
+          county = county,
+          state = state,
+          output = "tidy",
+          year = 2017,
+          cache_table = T,
+          summary_var = summary_var) %>% 
+    clean_names() %>% 
+    left_join(acsvars) %>% 
+    select(-summary_moe, -variable) %>% 
+    select(geoid, county = name, level, levlab, estimate, everything()) %>% 
+    rename(!!summary_label := summary_est)
+}
+
