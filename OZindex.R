@@ -34,7 +34,6 @@ saveRDS(julaugsep, "julaugsep.rds")
 saveRDS(octnovdem, "octnovdem.rds")
 
 
-
 ## Households Under 200% FPL
 library(crayon)
 library(tidycensus)
@@ -61,6 +60,49 @@ popunderhalf <- map_df(us, function(x) {
   get_acs(geography = "tract", variables = "B17026_002", 
           state = x)
 })
+saveRDS(popunderhalf, "popunderhalf.rds")
+
+pophalftopointsevenfive <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_003", 
+          state = x)
+})
+saveRDS(pophalftopointsevenfive, "2HalfToThreeFourths.rds")
+
+popThreeFourthsToOne <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_004", 
+          state = x)
+})
+saveRDS(popThreeFourthsToOne, "3ThreeFourthsToOne.rds")
+
+popOneToFiveFourths <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_005", 
+          state = x)
+})
+saveRDS(popOneToFiveFourths, "4OneToFiveFourths.rds")
+
+popFiveFourthsToThreeHalves <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_006", 
+          state = x)
+})
+saveRDS(popFiveFourthsToThreeHalves, "5FiveFourthsToThreeHalves.rds")
+
+popThreeHalvesToSevenFourths <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_007", 
+          state = x)
+})
+saveRDS(popThreeHalvesToSevenFourths, "6ThreeHalvesToSevenFourths.rds")
+
+popSevenFourthsToOnePointEightFive <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_008", 
+          state = x)
+})
+saveRDS(popSevenFourthsToOnePointEightFive, "7SevenFourthsToOnePointEightFive.rds")
+
+popPointEightFiveToTwo <- map_df(us, function(x) {
+  get_acs(geography = "tract", variables = "B17026_009", 
+          state = x)
+})
+saveRDS(popPointEightFiveToTwo, "PointEightFiveToTwo.rds")
 
 si_acs <- function(table, county = NULL, state = NULL, summary_var = "universe total") {
   cat(yellow(bold("Reminder: You must stay within the same level for any summary to be valid!\n")))
