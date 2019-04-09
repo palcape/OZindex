@@ -1,3 +1,41 @@
+# Exporting Data
+
+
+
+## Weather Variability
+fourteen <- read.csv("/Users/calpape/Downloads/StormEvents2014.csv")
+fifteen <- read.csv("/Users/calpape/Downloads/StormEvents2015.csv")
+sixteen <- read.csv("/Users/calpape/Downloads/StormEvents2016.csv")
+seventeen <- read.csv("/Users/calpape/Downloads/StormEvents2017.csv")
+eighteen <- read.csv("/Users/calpape/Downloads/StormEvents2018.csv")
+
+saveRDS(fourteen, "StormEvents2014.rds")
+saveRDS(fifteen, "StormEvents2015.rds")
+saveRDS(sixteen, "StormEvents2016.rds")
+saveRDS(seventeen, "StormEvents2017.rds")
+saveRDS(eighteen, "StormEvents2018.rds")
+
+
+## County Business Patterns
+cbp2 <- read.csv2("/Users/calpape/Downloads/cbp.txt", sep = ",")
+saveRDS(cbp2, "CBP.rds")
+
+
+## Change in Employment and Establishments
+library(readxl)
+janfebmar <- read_xlsx("/Users/calpape/Downloads/Establishments/janfebmar.xlsx")
+aprmayjun <- read_xlsx("/Users/calpape/Downloads/Establishments/aprmayjun.xlsx")
+julaugsep <- read_xlsx("/Users/calpape/Downloads/Establishments/julaugsep.xlsx")
+octnovdem <- read_xlsx("/Users/calpape/Downloads/Establishments/octnovdem.xlsx")
+
+saveRDS(janfebmar, "janfebmar.rds")
+saveRDS(aprmayjun, "aprmayjun.rds")
+saveRDS(julaugsep, "julaugsep.rds")
+saveRDS(octnovdem, "octnovdem.rds")
+
+
+
+## Households Under 200% FPL
 library(crayon)
 library(tidycensus)
 library(tidyverse)
